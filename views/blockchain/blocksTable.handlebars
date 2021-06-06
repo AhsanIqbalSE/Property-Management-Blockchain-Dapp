@@ -1,0 +1,331 @@
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <style>
+        .preloader {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 9999;
+   background-image: url('plugins/images/gears.gif');
+   background-repeat: no-repeat; 
+   background-color: #FFF;
+   background-position: center;
+}
+    </style>
+<style>
+    .searchSelect{
+  width: 20px;
+    background-color: transparent;
+    position: relative;
+    left: -30px;
+    border: none;
+    width: 20px;
+        cursor: pointer;
+
+}
+.search-submit-btn{
+    margin-left: -24px;
+    background-color: transparent;
+    color: lightgray;
+    border: none;
+}
+</style>
+
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="dashboard">
+                        <!-- Logo icon -->
+                       
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text m-auto">
+                            <!-- dark Logo text -->
+                            <img src="plugins/images/logo-text.png" alt="homepage" height="70px"/>
+                        </span>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav d-none d-md-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ml-auto d-flex align-items-center">
+
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="in">
+                            <form role="search" id="search" action="blockByHeight" method="post" class="app-search d-none d-md-block mr-3">
+                                <input type="text" name="search" id="searchInput" placeholder="Search..." class="form-control mt-0">
+                                 {{!-- <label>Select</label> --}}
+                                    <select id="selectBox" class="searchSelect" onclick="searchBarr()">
+                                    <option disabled>Select</option> 
+                                    <option value="blockByHeight">block By height</option> 
+                                    <option value="blockByHash">block By hash</option> 
+                                    <option value="trOwnerName">property by name</option>
+                                    <option value="tractionByHeight">Transaction by Block Height</option> 
+                                    </select>
+                                    <span onclick="startDictation()" style="color: lightgray;position: relative;left: -20px;"><i class="fas fa-microphone"></i></span>
+
+                                <button type="submit" class="active search-submit-btn" >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <script>
+                            function searchBarr(){
+                                var Action = document.getElementById("search");
+                                var e = document.getElementById("selectBox");
+                                var searchItem = e.value;
+                                Action.action=searchItem
+                                console.log(searchItem)
+                            }
+                        </script>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                       
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="dashboard" aria-expanded="false"><i class="fas fa-clock fa-fw"
+                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span>
+                                </a>
+                        </li>
+                     
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="blocks" aria-expanded="false"><i class="fa fa-table"
+                                    aria-hidden="true"></i><span class="hide-menu">Blocks</span>
+                                </a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="allMempool" aria-expanded="false"><i class="fa fa-font"
+                                    aria-hidden="true"></i><span class="hide-menu">Mempool Transactions</span>
+                                </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="propertyDirectory"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Property Directory</span>
+                            </a>
+                        </li>
+                        
+        
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title text-uppercase font-medium font-14">All Blocks</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ml-auto">
+                            </ol>
+                            <a href="/mineAndBroadcast"
+                                class="btn btn-danger  d-none d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Mine Block</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Blocks</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Height</th>
+                                            <th class="border-top-0">Timestamp</th>
+                                            <th class="border-top-0">Transactions</th>
+                                            <th class="border-top-0">PreviousHash</th>
+                                            <th class="border-top-0">Hash</th>
+                                            <th class="border-top-0">Nonce</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                          {{#each list}}
+                                        <tr>
+                                            <td>{{this.height}}</td>
+                                            <td class="txt-oflo">{{this.timestamp}}</td>
+                                            <td style="width: 50px;">{{this.transactions.length}}</td>
+                                            <td class="txt-oflo">{{this.previousHash}}</td>
+                                            <td><span class="txt-oflo">{{this.hash}}</span></td>
+                                            <td><span class="text-success">{{this.nonce}}</span></td>
+                                        </tr>
+                                           {{/each}}
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+             <!-- ============================================================== -->
+             <footer class="footer text-center"> 2020 © All right reserve 
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <div class="preloader"></div>
+<script>
+    $(window).load(function() {
+   $('.preloader').fadeOut('slow');
+});
+</script>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="plugins/bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+
+ <!-- HTML5 Speech Recognition API -->
+  <script>
+    function startDictation() {
+  
+      if (window.hasOwnProperty('webkitSpeechRecognition')) {
+  
+        var recognition = new webkitSpeechRecognition();
+  
+        recognition.continuous = false;
+        recognition.interimResults = false;
+  
+        recognition.lang = "en-US";
+        recognition.start();
+  
+        recognition.onresult = function(e) {
+            var str=e.results[0][0].transcript
+          document.getElementById('searchInput').value
+                                   = str.toLowerCase();
+          recognition.stop();
+          document.getElementById('search').submit();
+        };
+  
+        recognition.onerror = function(e) {
+          recognition.stop();
+        }
+  
+      }
+    }
+  </script>

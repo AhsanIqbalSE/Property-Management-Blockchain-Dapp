@@ -1,0 +1,498 @@
+
+
+<head>
+
+<style>
+    .send-button{
+background: #54C7C3;
+width:100%;
+font-weight: 600;
+color:#fff;
+padding: 8px 25px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.g-button{
+color: #fff !important;
+border: 1px solid #EA4335;
+background: #ea4335 !important;
+width:100%;
+font-weight: 600;
+color:#fff;
+padding: 8px 25px;
+}
+.my-input{
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+cursor: text;
+padding: 8px 10px;
+transition: border .1s linear;
+}
+.header-title{
+margin: 5rem 0;
+}
+h1{
+font-size: 31px;
+line-height: 40px;
+font-weight: 600;
+color:#4c5357;
+}
+h2{
+color: #5e8396;
+font-size: 21px;
+line-height: 32px;
+font-weight: 400;
+}
+.login-or {
+position: relative;
+color: #aaa;
+margin-top: 10px;
+margin-bottom: 10px;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.span-or {
+display: block;
+position: absolute;
+left: 50%;
+top: -2px;
+margin-left: -25px;
+background-color: #fff;
+width: 50px;
+text-align: center;
+}
+.hr-or {
+height: 1px;
+margin-top: 0px !important;
+margin-bottom: 0px !important;
+}
+@media screen and (max-width:480px){
+h1{
+font-size: 26px;
+}
+h2{
+font-size: 20px;
+}
+}
+.modallog {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(69, 77, 94, 0.9);
+            padding-top: 50px;
+        }
+        .modal_content {
+            background-color: #fefefe;
+            margin: 0% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 40%;
+            border-radius: 50px;
+            padding: 40px;
+    left: 50%;
+    transform: translate(-0%, 50%);
+            /* Could be more or less, depending on screen size */
+        }
+        
+        @media(max-width: 800px) {
+            .modal_content {
+                width: 60%;
+            }
+        }
+        
+        @media(max-width: 500px) {
+            .modal_content {
+                width: 80%;
+            }
+        }
+        /* Style the horizontal ruler */
+        
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+        /* The Close Button (x) */
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 40px;
+            font-weight: bold;
+            color: gray;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: rgb(44, 42, 42);
+            cursor: pointer;
+        }
+        /*sec for login*/
+    .searchSelect{
+  width: 20px;
+    background-color: transparent;
+    position: relative;
+    left: -30px;
+    border: none;
+    width: 20px;
+        cursor: pointer;
+
+}
+     .search-submit-btn{
+    margin-left: -24px;
+    background-color: transparent;
+    color: lightgray;
+    border: none;
+} 
+</style>
+</head>
+
+<body>
+     <!--add transaction form -->
+     <div id="id2" class="modallog">
+        <div class="modal_content">
+        <span onclick="document.getElementById('id2').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <div class="container">
+                <div class="row">
+                   <div class="col-md-12 mx-auto">
+                      <div class="myform form">
+                         <form action="txAndBroadcast" method="post" name="login">
+                            <div class="form-group">
+                               <input type="text" name="ownerName"  class="form-control my-input" id="name" placeholder="Enter Owner Name...">
+                            </div>
+                            <div class="form-group">
+                               <input type="text" name="size"  class="form-control my-input" id="email" placeholder="Size in Sqft...">
+                            </div>
+                            <div class="form-group">
+                               <input type="text" name="plotAddress"  class="form-control my-input" id="email" placeholder="Address...">
+                            </div>
+                            <div class="form-group">
+                               <input type="text" name="amount"  class="form-control my-input" placeholder="Amount...">
+                            </div>
+                            <div class="text-center ">
+                               <button type="submit" class=" btn btn-block btn-secondary  tx-tfm">Submit</button>
+                            </div>
+                         </form>
+                      </div>
+                   </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="dashboard">
+                        <!-- Logo icon -->
+                       
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span class="logo-text m-auto">
+                            <!-- dark Logo text -->
+                            <img src="plugins/images/logo-text.png" alt="homepage" height="70px"/>
+                        </span>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav d-none d-md-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ml-auto d-flex align-items-center">
+
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="in">
+                            <form role="search" id="search" action="blockByHeight" method="post" class="app-search d-none d-md-block mr-3">
+                                <input type="text" name="search" id="searchInput" placeholder="Search..." class="form-control mt-0">
+                                 {{!-- <label>Select</label> --}}
+                                    <select id="selectBox" class="searchSelect" onclick="searchBarr()">
+                                    <option disabled>Select</option> 
+                                    <option value="blockByHeight">block By height</option> 
+                                    <option value="blockByHash">block By hash</option> 
+                                    <option value="trOwnerName">property by name</option>
+                                    <option value="tractionByHeight">Transaction by Block Height</option> 
+                                    </select>
+                                    <span onclick="startDictation()" style="color: lightgray;position: relative;left: -20px;"><i class="fas fa-microphone"></i></span>
+
+                                <button type="submit" class="active search-submit-btn">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <script>
+                            function searchBarr(){
+                                var Action = document.getElementById("search");
+                                var e = document.getElementById("selectBox");
+                                var searchItem = e.value;
+                                Action.action=searchItem
+                                console.log(searchItem)
+                            }
+                        </script>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                       
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="dashboard" aria-expanded="false"><i class="fas fa-clock fa-fw"
+                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span>
+                                </a>
+                        </li>
+                     
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="blocks" aria-expanded="false"><i class="fa fa-table"
+                                    aria-hidden="true"></i><span class="hide-menu">Blocks</span>
+                                </a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="allMempool" aria-expanded="false"><i class="fa fa-font"
+                                    aria-hidden="true"></i><span class="hide-menu">Mempool Transactions</span>
+                                </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="propertyDirectory"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Property Directory</span>
+                            </a>
+                        </li>
+                        
+        
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title text-uppercase font-medium font-14">Mempool</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ml-auto">
+                            </ol>
+                            <a href="#" 
+                                class="btn btn-danger  d-none d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light" onclick="document.getElementById('id2').style.display='block'">Register Property</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Transactions</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">Timestamp</th>
+                                            <th class="border-top-0">Owner Name</th>
+                                            <th class="border-top-0">Covered Area (Sqft)</th>
+                                            <th class="border-top-0">Address</th>
+                                            <th class="border-top-0">Amount</th>
+                                            <th class="border-top-0">TxHash</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each mempool}}
+                                        <tr>
+                                            <td>{{this.timestamp}}</td>
+                                            <td class="txt-oflo">{{this.ownerName}}</td>
+                                            <td class="txt-oflo">{{this.size}}</td>
+                                            <td style="width: 50px;">{{this.plotAddress}}</td>
+                                            <td style="width: 50px;">{{this.amount}}</td>
+                                            <td><span class="txt-oflo">{{this.txHash}}</span></td>
+                                        </tr>
+                                           {{/each}}
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>{{msg}}</h2>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+             <!-- ============================================================== -->
+             <footer class="footer text-center"> 2020 © All right reserve 
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div> 
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="plugins/bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+    <script>
+        var modal = document.getElementById('id1');
+        var modal1 = document.getElementById('id2');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
+
+        }
+    </script>
+     <!-- HTML5 Speech Recognition API -->
+  <script>
+    function startDictation() {
+  
+      if (window.hasOwnProperty('webkitSpeechRecognition')) {
+  
+        var recognition = new webkitSpeechRecognition();
+  
+        recognition.continuous = false;
+        recognition.interimResults = false;
+  
+        recognition.lang = "en-US";
+        recognition.start();
+  
+        recognition.onresult = function(e) {
+            var str=e.results[0][0].transcript
+          document.getElementById('searchInput').value
+                                   = str.toLowerCase();
+          recognition.stop();
+          document.getElementById('search').submit();
+        };
+  
+        recognition.onerror = function(e) {
+          recognition.stop();
+        }
+  
+      }
+    }
+  </script>
+</body>
+
